@@ -47,4 +47,3 @@ output "enabled_services" {
   }
   description = "Information about which Azure services are enabled for this identity"
 }
-

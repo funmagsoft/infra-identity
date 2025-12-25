@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
   }
 }
 
@@ -15,10 +19,7 @@ locals {
   federated_cred_name   = "fic-${var.project_name}-${var.service_name}-${var.environment}"
   fic_subject           = "system:serviceaccount:${var.namespace}:${local.service_account_name}"
 
-  needs_azure_access = var.enable_key_vault_access
-    || var.enable_storage_access
-    || var.enable_service_bus_access
-    || length(var.additional_roles) > 0
+  needs_azure_access = var.enable_key_vault_access || var.enable_storage_access || var.enable_service_bus_access || length(var.additional_roles) > 0
 
   # Default tags merged with provided tags
   tags = merge(
@@ -28,7 +29,7 @@ locals {
       Service       = var.service_name
       ManagedBy     = "Terraform"
       Phase         = "WorkloadIdentity"
-      GitRepository = "infra-workload-identity"
+      GitRepository = "infra-identity"
     },
     var.tags
   )

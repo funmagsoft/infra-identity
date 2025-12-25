@@ -5,6 +5,7 @@ Workload Identities (UAMI), Federated Identity Credentials (FIC), and RBAC for a
 ## Purpose
 
 This repository contains Terraform code and helper scripts to:
+
 - Create User Assigned Managed Identities (UAMI) per service.
 - Create GitHub OIDC Federated Identity Credentials (FIC) per service to enable passwordless deployments from GitHub Actions.
 - Assign RBAC for services to Azure resources (Key Vault, Storage, Service Bus, plus optional custom roles).
@@ -30,6 +31,7 @@ scripts/
 ## What is created per service
 
 For each service declared in `terraform/environments/<env>/services.tf`:
+
 - **User Assigned Managed Identity (UAMI)**  
   Name: `mi-ecare-<service>-<env>`
 - **Federated Identity Credential (FIC)** for GitHub OIDC  
@@ -75,6 +77,7 @@ scripts/add-service.sh --env dev --service billing --repo funmagsoft/billing-ser
 ```
 
 Options:
+
 - `--env dev|test|stage|prod|all` – target environment(s)
 - `--service <name>` – logical service name
 - `--repo <org/repo>` – GitHub repo for OIDC subject
@@ -84,6 +87,7 @@ Options:
 - `--dry-run` – show the resulting `services.tf` without writing
 
 Behavior:
+
 - Updates `terraform/environments/<env>/services.tf` (inserts/replaces a block `# Service: <name>`).
 - In `--dry-run` mode, prints the would-be file content and does not write.
 - If `services.tf` is missing and `--dry-run`, it only prints a template; otherwise it creates a template and appends the service.
@@ -95,15 +99,20 @@ Shared helpers: `parse_dry_run`, logging, optional `.env` loading (ignored if mi
 ## Running Terraform
 
 1. Go to the environment directory, e.g.:
+
    ```bash
    cd terraform/environments/dev
    ```
+
 2. Configure services in `services.tf` (or via `add-service.sh`).
 3. Initialize:
+
    ```bash
    terraform init
    ```
+
 4. Plan / apply:
+
    ```bash
    terraform plan
    terraform apply
@@ -126,8 +135,10 @@ Shared helpers: `parse_dry_run`, logging, optional `.env` loading (ignored if mi
 ## Cleanup
 
 To remove identities/RBAC for an environment:
+
 ```
 cd terraform/environments/<env>
 terraform destroy
 ```
+
 Be mindful of shared platform resources; the destroy will remove only the identities/RBAC created here.

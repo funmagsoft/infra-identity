@@ -3,6 +3,7 @@
 Creates a User Assigned Managed Identity (UAMI), GitHub OIDC Federated Identity Credential (FIC), and optional RBAC assignments for a single service.
 
 ## Resources
+
 - User Assigned Managed Identity (UAMI) — conditional on any access/role being needed
 - Federated Identity Credential (GitHub OIDC) bound to the UAMI
 - RBAC role assignments (conditional):
@@ -12,6 +13,7 @@ Creates a User Assigned Managed Identity (UAMI), GitHub OIDC Federated Identity 
   - Additional custom roles (`role_definition_name`, `scope`)
 
 ## Inputs (key)
+
 - `project_name` (string)
 - `service_name` (string)
 - `environment` (string)
@@ -24,12 +26,14 @@ Creates a User Assigned Managed Identity (UAMI), GitHub OIDC Federated Identity 
 - `tags` (map(string))
 
 ## Outputs
+
 - `identity_id`
 - `identity_client_id`
 - `identity_principal_id`
 - `federated_credential_id`
 
 ## Usage (example)
+
 ```hcl
 module "workload_identity" {
   source = "../../modules/workload-identity"
@@ -57,7 +61,7 @@ module "workload_identity" {
 ```
 
 ## Notes
+
 - FIC uses GitHub OIDC: issuer `https://token.actions.githubusercontent.com`, subject `repo:{repo}:ref:refs/heads/{branch}`.
 - If a flag is true but the corresponding ID is null, a precondition will fail.
 - Tags include `Environment`, `Project`, `Service`, `ManagedBy=Terraform`, `Phase=WorkloadIdentity`.
-

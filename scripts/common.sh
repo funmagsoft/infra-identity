@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Common helpers for infra-workload-identity scripts
+# Common helpers for infra-identity scripts
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -54,5 +54,3 @@ run_cmd() {
     "$@"
   fi
 }
-
-

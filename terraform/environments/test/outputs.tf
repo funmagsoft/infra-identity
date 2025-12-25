@@ -10,5 +10,3 @@ output "workload_identities" {
     }
   }
 }
-
-
